@@ -1,0 +1,223 @@
+-- Codecademy Project: Codecademy Learners Mockup Data
+
+-- Tables: 
+
+-- users table:
+
+  -- user_id
+  -- email_domain
+  -- country
+  -- postal
+  -- mobile_app
+  -- sign_up_at
+  
+-- progress table:
+
+  -- user_id
+  -- learn_cpp
+  -- learn_sql
+  -- learn_html
+  -- learn_javascript
+  -- learn_java
+  
+-- Questions to Answer:  
+
+-- What are the Top 25 schools (.edu domains)? 
+
+SELECT email_domain, COUNT(*) as domain_count
+FROM users
+GROUP BY email_domain
+ORDER BY domain_count DESC
+LIMIT 25;
+
+-- How many .edu learners are located in New York?
+
+SELECT city, COUNT(*) as edu_New_York_count
+FROM users
+WHERE email_domain LIKE '%.edu'
+AND city = 'New York';
+
+--The mobile_app column contains either mobile-user or NULL. How many of these Codecademy learners are using the mobile app?
+
+SELECT COUNT(*) AS mobile_app_learners
+FROM users
+WHERE mobile_app = 'mobile-user';
+
+SELECT sign_up_at, 
+  strftime('%H', sign_up_at) AS sign_up_hour, COUNT(*) AS sign_up_count
+FROM users
+GROUP BY 2
+ORDER BY sign_up_count DESC;
+
+-- Do different schools (.edu domains) prefer different courses?
+
+WITH cpp AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_cpp IN ('started', 'completed')
+  ),
+
+  sql AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_sql IN ('started', 'completed')
+  ),
+
+  html AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_html IN ('started', 'completed')
+  ),
+
+  javascript AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_javascript IN ('started', 'completed')
+  ),
+
+  java AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_java IN ('started', 'completed')
+  )
+
+SELECT 
+  u.email_domain,
+  COUNT(c.learn_cpp) AS count_cpp,
+  COUNT(s.learn_sql) AS count_sql,
+  COUNT(h.learn_html) AS count_html,
+  COUNT(j1.learn_javascript) AS count_javascript,
+  COUNT(j2.learn_java) AS count_java
+FROM users AS u
+LEFT JOIN cpp AS c
+ON u.user_id = c.user_id
+LEFT JOIN sql AS s
+ON u.user_id = s.user_id
+LEFT JOIN html AS h
+on u.user_id = h.user_id
+LEFT JOIN javascript AS j1
+on u.user_id = j1.user_id
+LEFT JOIN java AS j2
+on u.user_id = j2.user_id
+GROUP BY 1;
+
+--What courses are the New Yorkers students taking?
+
+WITH cpp AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_cpp IN ('started', 'completed')
+  ),
+
+  sql AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_sql IN ('started', 'completed')
+  ),
+
+  html AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_html IN ('started', 'completed')
+  ),
+
+  javascript AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_javascript IN ('started', 'completed')
+  ),
+
+  java AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_java IN ('started', 'completed')
+  )
+
+SELECT 
+  city,
+  COUNT(c.learn_cpp) AS count_cpp,
+  COUNT(s.learn_sql) AS count_sql,
+  COUNT(h.learn_html) AS count_html,
+  COUNT(j1.learn_javascript) AS count_javascript,
+  COUNT(j2.learn_java) AS count_java
+FROM users AS u
+LEFT JOIN cpp AS c
+ON u.user_id = c.user_id
+LEFT JOIN sql AS s
+ON u.user_id = s.user_id
+LEFT JOIN html AS h
+on u.user_id = h.user_id
+LEFT JOIN javascript AS j1
+on u.user_id = j1.user_id
+LEFT JOIN java AS j2
+on u.user_id = j2.user_id
+WHERE city = 'New York'
+GROUP BY 1;
+
+--What courses are the Chicago students taking?
+
+WITH cpp AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_cpp IN ('started', 'completed')
+  ),
+
+  sql AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_sql IN ('started', 'completed')
+  ),
+
+  html AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_html IN ('started', 'completed')
+  ),
+
+  javascript AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_javascript IN ('started', 'completed')
+  ),
+
+  java AS
+  (
+  SELECT *
+  FROM progress
+  WHERE learn_java IN ('started', 'completed')
+  )
+
+SELECT 
+  city,
+  COUNT(c.learn_cpp) AS count_cpp,
+  COUNT(s.learn_sql) AS count_sql,
+  COUNT(h.learn_html) AS count_html,
+  COUNT(j1.learn_javascript) AS count_javascript,
+  COUNT(j2.learn_java) AS count_java
+FROM users AS u
+LEFT JOIN cpp AS c
+ON u.user_id = c.user_id
+LEFT JOIN sql AS s
+ON u.user_id = s.user_id
+LEFT JOIN html AS h
+on u.user_id = h.user_id
+LEFT JOIN javascript AS j1
+on u.user_id = j1.user_id
+LEFT JOIN java AS j2
+on u.user_id = j2.user_id
+WHERE city = 'Chicago'
+GROUP BY 1;
