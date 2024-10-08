@@ -1,5 +1,5 @@
-- 👋 Hi, I’m @deepturkey
-- 👀 I’m interested in water, finance
+- 👋 Hi, I’m @DataManErik
+- 👀 I’m interested in finance, water
 - 🌱 I’m currently learning sql
 
 
