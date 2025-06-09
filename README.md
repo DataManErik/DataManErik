@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @DataManErik
 - 👀 I’m interested in finance, water
-- 🌱 I’m currently learning sql
+- 🌱 I’m currently learning Python via [Learn to Code With Hockey](https://codewithhockey.com/)
 
 
 <!---
